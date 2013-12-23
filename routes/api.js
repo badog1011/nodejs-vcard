@@ -1,4 +1,4 @@
-var vcard;
+var vcard ;
 var fs = require('fs');
 var path = require('path');
 
@@ -20,7 +20,10 @@ exports.create = function(req, res){
 
 	vcard.push(person);
 
-	res.end();
+	//更新db.json
+	fs.writeFile(path.join(__dirname, '/db.json'), JSON.stringify(vcard), function (err) {
+		res.end();
+	});
 };
 
 exports.read = function(req, res){
@@ -40,12 +43,34 @@ exports.update = function(req, res){
 			entry.tel =  req.query.tel;
 		}
 	});
+	//更新db.json
+	fs.writeFile(path.join(__dirname, '/db.json'), JSON.stringify(vcard), function (err) {
+		res.end();
+	});
 
-	res.end();
 };
 
 exports.delete = function(req, res){
-	res.end();
+	var nickname = req.params.nickname;
+	var newVcard = [];
+	var delPath = path.join(__dirname, '../frontend/uploads', nickname +'.jpg' ); //刪除圖片路徑宣告
+	//移除資料夾裡的圖檔
+	fs.unlink(delPath, function(err, data){ 
+		vcard.forEach(function (entry) {
+		if (entry.nickname !== nickname) {
+			console.log('file is delete!');
+			newVcard.push(entry);
+		}
+		});
+		vcard = newVcard;
+
+		//刪除db.json資料
+		 fs.writeFile(path.join(__dirname, '/db.json'), JSON.stringify(vcard), function (err) {
+		 	res.end();
+		 });
+		
+	});
+
 };
 
 exports.upload = function(req, res) {

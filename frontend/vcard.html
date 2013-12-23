@@ -10,10 +10,10 @@
   <script id='vcardTemplate' type='text/x-jquery-tmpl'>
       <div class="col-xs-12 col-md-6">
         <div class="alert alert-danger">
-          <h2>${name}</h2>
-          <img class='img-circle' src='uploads/${nickname}.jpg' width='96' height='96' data-toggle='photo' data-nickname="${nickname}" />
+          <h2 class='well'>${name}</h2>
+          <img class='img-circle' src='uploads/${nickname}.jpg' width='96' height='96'  data-toggle='photo' data-nickname="${nickname}" />
           <span class="label label-warning">${tel}</span>
-          <div>
+          <div style='padding-top:10px;'>
             <audio controls>
               <source src="uploads/${nickname}.mp3" type="audio/mpeg">
             </audio>
@@ -31,8 +31,8 @@
   </script>
   <body>
     <div class="container">
-      <h1>VCards</h1>    
-      <div class="row">
+      <h1 class="text-center alert alert-danger"><strong>名片系統 VCards</strong></h1>    
+      <div class="row text-center">
         <div id="userList"></div>
       </div>
     </div>
